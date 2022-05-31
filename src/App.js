@@ -1,14 +1,16 @@
 import React from "react";
 import "./App.css";
-import Registration from "./pages/register-login/Registration";
+import RegistrationPage from "./pages/register-login/RegistrationPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/register-login/LoginPage";
 
 const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Registration />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
           <Route path="*" element={<h1>404 Page Not Found</h1>} />
         </Routes>
       </BrowserRouter>
