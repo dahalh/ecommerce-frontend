@@ -3,6 +3,9 @@ import "./App.css";
 import RegistrationPage from "./pages/register-login/RegistrationPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/register-login/LoginPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import EmailVerification from "./pages/register-login/EmailVerification";
 
 const App = () => {
   return (
@@ -11,9 +14,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/admin/verify-email" element={<EmailVerification />} />
           <Route path="*" element={<h1>404 Page Not Found</h1>} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 };

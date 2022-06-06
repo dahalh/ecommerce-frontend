@@ -1,10 +1,25 @@
 import React, { useState } from "react";
-import { Alert, Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Container, Form, Spinner } from "react-bootstrap";
 import "./registerForm.css";
+import { useDispatch, useSelector } from "react-redux";
+import { postUserAction } from "../../pages/register-login/signInUpAction";
+
+const initialState = {
+  fName: "Himanshu",
+  lName: "Dahal",
+  phone: "0412345678",
+  email: "h@d.com",
+  password: "123456",
+  confirmPassword: "123456",
+};
 
 export const RegisterForm = () => {
-  const [form, setForm] = useState({});
+  const dispatch = useDispatch();
+  const [form, setForm] = useState(initialState);
   const [error, setError] = useState(false);
+
+  // pull data from redux store
+  const { isLoading, response } = useSelector((state) => state.signInUp);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,10 +33,16 @@ export const RegisterForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    const { password, confirmPassword } = form;
+    if (form.password !== form.confirmPassword) {
+      setError(true);
+    }
+    setError(false);
+    console.log(form);
 
-    password === confirmPassword ? setError(false) : setError(true);
+    const { confirmPassword, ...rest } = form;
     // we dispatch the action to the reducer
+
+    dispatch(postUserAction(rest));
 
     // console.log(form);
   };
@@ -37,6 +58,7 @@ export const RegisterForm = () => {
             <Form.Control
               onChange={handleChange}
               name="fName"
+              value={form.fName}
               placeholder="Sam"
               required
             />
@@ -46,7 +68,18 @@ export const RegisterForm = () => {
             <Form.Control
               onChange={handleChange}
               name="lName"
+              value={form.lName}
               placeholder="Smith"
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formGroupEmail">
+            <Form.Label>Phone</Form.Label>
+            <Form.Control
+              onChange={handleChange}
+              name="phone"
+              value={form.phone}
+              placeholder="0412345678"
               required
             />
           </Form.Group>
@@ -72,6 +105,7 @@ export const RegisterForm = () => {
             <Form.Control
               onChange={handleChange}
               name="email"
+              value={form.email}
               type="email"
               placeholder="Enter email"
               required
@@ -83,6 +117,7 @@ export const RegisterForm = () => {
               onChange={handleChange}
               name="password"
               type="password"
+              value={form.password}
               placeholder="Password"
               required
             />
@@ -93,6 +128,7 @@ export const RegisterForm = () => {
               onChange={handleChange}
               name="confirmPassword"
               type="password"
+              value={form.confirmPassword}
               placeholder="Password"
               required
             />
@@ -100,10 +136,30 @@ export const RegisterForm = () => {
               Passwords do no match!
             </Alert>
           </Form.Group>
+
+          {/* <Form.Group>
+            {response.message && (
+              <Alert
+                variant={response.status === "success" ? "success" : "danger"}
+              >
+                {response.message}
+              </Alert>
+            )}
+          </Form.Group> */}
+
           <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">
+              {isLoading ? (
+                <Spinner variant="danger" animation="border" size="sm" />
+              ) : (
+                "Sign Up"
+              )}
+            </Button>
           </Form.Group>
         </Form>
+        <div className="text-end">
+          Already have account? <a href="/">Login Here</a>
+        </div>
       </div>
     </Container>
   );
