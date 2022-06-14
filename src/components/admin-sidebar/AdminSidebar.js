@@ -19,6 +19,7 @@ export const AdminSidebar = () => {
       <Offcanvas
         show={showAdminSidebar}
         onHide={() => dispatch(toggleSidebar())}
+        onClick={() => dispatch(toggleSidebar())}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Admin Side Menu</Offcanvas.Title>
@@ -53,12 +54,12 @@ export const AdminSidebar = () => {
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/catalog">
-                <i class="fa-solid fa-notes"></i> Catalog
+                <i class="fa-solid fa-book"></i> Catalog
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/categories">
-                <i class="fa-solid fa-filter-list"></i> Categories
+                <i class="fa-solid fa-list"></i> Categories
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
