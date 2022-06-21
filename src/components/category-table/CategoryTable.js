@@ -8,18 +8,16 @@ import {
 } from "../../pages/categories/categoryAction";
 import { toggleModal } from "../../system-state/systemSlice";
 import { EditCategory } from "../category-form/EditCategory";
-import { MyVerticallyCenteredModal } from "../modal/Modal";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
-
   const { categories } = useSelector((state) => state.category);
   const [selectedCat, setSelectedCat] = useState({});
 
   useEffect(() => {
     // call api to fetch all the cats and set in the store
     dispatch(fetchCategoriesAction());
-  }, []);
+  }, [dispatch]);
 
   const handleOnDelete = (_id) => {
     if (window.confirm("Are you sure you want to delete this category?")) {
@@ -77,9 +75,9 @@ export const CategoryTable = () => {
                   </Button>
                 </td>
               </tr>
-              {childCats.map((cat, index) => {
-                if (cat.parentCatId === item._id) {
-                  return (
+              {childCats.map(
+                (cat) =>
+                  cat.parentCatId === item._id && (
                     <tr key={cat._id}>
                       {/* <td>{i + 1}</td> */}
                       <td>
@@ -111,9 +109,8 @@ export const CategoryTable = () => {
                         </Button>
                       </td>
                     </tr>
-                  );
-                }
-              })}
+                  )
+              )}
             </>
           ))}
         </tbody>

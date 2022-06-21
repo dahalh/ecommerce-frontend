@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Button, Col, Form, Row, Table } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  postCategoryAction,
-  updateCategoryAction,
-} from "../../pages/categories/categoryAction";
+import { updateCategoryAction } from "../../pages/categories/categoryAction";
 import { MyVerticallyCenteredModal } from "../modal/Modal";
 
 const initialState = {
@@ -31,7 +28,7 @@ export const EditCategory = ({ selectedCat }) => {
       value = checked ? "active" : "inactive";
     }
 
-    console.log(checked, name, value);
+    // console.log(checked, name, value);
 
     setForm({
       ...form,

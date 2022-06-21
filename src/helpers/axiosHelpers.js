@@ -3,6 +3,7 @@ import axios from "axios";
 const rootUrlAPI = "http://localhost:8000/api/v1";
 const adminEP = rootUrlAPI + "/admin";
 const catEP = rootUrlAPI + "/category";
+const productEP = rootUrlAPI + "/products";
 
 // ==== admin apis ======
 
@@ -64,4 +65,21 @@ export const deleteCategory = (_id) => {
 export const updateCategory = (dataObj) => {
   const url = catEP;
   return apiProcessor({ method: "put", url, dataObj });
+};
+
+// ==== product apis ======
+
+export const getProducts = () => {
+  const url = productEP;
+  return apiProcessor({ method: "get", url });
+};
+
+export const postProduct = (dataObj) => {
+  const url = productEP;
+  return apiProcessor({ method: "post", url, dataObj });
+};
+
+export const deleteProducts = (dataObj) => {
+  const url = productEP;
+  return apiProcessor({ method: "delete", url, dataObj });
 };

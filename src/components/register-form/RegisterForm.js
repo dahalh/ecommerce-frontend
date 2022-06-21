@@ -19,7 +19,7 @@ export const RegisterForm = () => {
   const [error, setError] = useState(false);
 
   // pull data from redux store
-  const { isLoading, response } = useSelector((state) => state.signInUp);
+  const { isLoading } = useSelector((state) => state.signInUp);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
