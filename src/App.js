@@ -12,6 +12,7 @@ import Categories from "./pages/categories/Categories";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/product/NewProduct";
 import EditProduct from "./pages/product/EditProduct";
+import PaymentMethod from "./pages/payment-method/PaymentMethod";
 
 const App = () => {
   return (
@@ -27,6 +28,10 @@ const App = () => {
           <Route path="/products" element={<Product />} />
           <Route path="/product/new" element={<NewProduct />} />
           <Route path="/product/edit/:_id" element={<EditProduct />} />
+
+          <Route path="/payments" element={<PaymentMethod />} />
+
+          {/* public routers */}
 
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
