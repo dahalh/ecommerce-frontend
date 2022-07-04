@@ -46,6 +46,17 @@ export const postEmailVerification = (dataObj) => {
   return apiProcessor({ method: "post", url, dataObj });
 };
 
+export const updateAdminUser = (dataObj) => {
+  const url = adminEP;
+  return apiProcessor({ method: "put", url, dataObj });
+};
+
+// request otp
+export const requestPasswordResetOTP = (dataObj) => {
+  const url = adminEP + "/otp-request";
+  return apiProcessor({ method: "post", url, dataObj });
+};
+
 // ==== category apis ======
 
 export const getCategories = () => {
