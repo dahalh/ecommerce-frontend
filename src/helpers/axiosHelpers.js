@@ -57,6 +57,12 @@ export const requestPasswordResetOTP = (dataObj) => {
   return apiProcessor({ method: "post", url, dataObj });
 };
 
+// update password
+export const updateAdminPassword = (dataObj) => {
+  const url = adminEP + "/password";
+  return apiProcessor({ method: "patch", url, dataObj });
+};
+
 // ==== category apis ======
 
 export const getCategories = () => {
