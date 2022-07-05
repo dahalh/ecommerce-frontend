@@ -24,6 +24,7 @@ export const ProductForm = () => {
   const { categories } = useSelector((state) => state.category);
 
   const [form, setForm] = useState(initialState);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
@@ -40,11 +41,26 @@ export const ProductForm = () => {
     });
   };
 
+  const handleOnImageSelect = (e) => {
+    const { files } = e.target;
+    console.log(files);
+    setImages(files);
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
-    dispatch(postProductAction(form));
-    console.log(form);
+
+    const formData = new FormData();
+
+    for (const key in form) {
+      // console.log(key, form[key])
+      formData.append(key, form[key]);
+    }
+
+    images.length && [...images].map((img) => formData.append("images", img));
+
+    dispatch(postProductAction(formData));
   };
 
   const inputFields = [
@@ -95,7 +111,14 @@ export const ProductForm = () => {
       name: "description",
       as: "textarea",
       rows: "5",
-      required: "true",
+      required: true,
+    },
+    {
+      name: "images",
+      type: "file",
+      multiple: true,
+      accept: "imge/*",
+      required: true,
     },
   ];
 
@@ -129,7 +152,13 @@ export const ProductForm = () => {
       </Form.Group>
 
       {inputFields.map((item, i) => (
-        <CustomInput key={i} {...item} onChange={handleOnChange} />
+        <CustomInput
+          key={i}
+          {...item}
+          onChange={
+            item.name === "images" ? handleOnImageSelect : handleOnChange
+          }
+        />
       ))}
 
       <Button className="mb-3" variant="primary" type="submit">

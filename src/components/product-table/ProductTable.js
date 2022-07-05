@@ -20,9 +20,11 @@ export const ProductTable = () => {
     dispatch(fetchProductsAction());
   }, []);
 
-  const handleOnDelete = (_id) => {
+  const handleOnDelete = () => {
     if (window.confirm("Are you sure you want to delete this category?")) {
       // dispatch(deleteCategoryAction(_id));
+      dispatch(deleteProductAction(ids));
+      setIds(ids);
     }
   };
 
@@ -51,7 +53,7 @@ export const ProductTable = () => {
 
   return (
     <div style={{ overflowX: "scroll" }}>
-      <p>{products.length} Categories found!</p>
+      <p>{products.length} Products found!</p>
       <Table striped>
         <thead>
           <tr>
@@ -112,7 +114,7 @@ export const ProductTable = () => {
         {ids.length > 0 && (
           <Button
             title="You can only delete if child does not exist"
-            onClick={() => dispatch(deleteProductAction(ids)) && setIds(ids)}
+            onClick={handleOnDelete}
             variant="danger"
           >
             Delete

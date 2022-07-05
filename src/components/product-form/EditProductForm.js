@@ -20,15 +20,17 @@ const initialState = {
   salesStartDate: null,
   sku: "e11",
   status: "inactive",
+  thumbnail: "",
+  images: [],
 };
 
 export const EditProductForm = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { selectedProduct } = useSelector((state) => state.products);
-  // console.log(selectedProduct);
-
   const [form, setForm] = useState(initialState);
+  const [newImages, setImages] = useState([]);
+  const [imgToDelete, setImgToDelete] = useState([]);
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
@@ -46,29 +48,47 @@ export const EditProductForm = () => {
     });
   };
 
+  const handleOnImageSelect = (e) => {
+    const { files } = e.target;
+    console.log(files);
+    setImages(files);
+  };
+
+  const handleOnImageDelete = (e) => {
+    const { checked, value, name } = e.target;
+    if (checked) {
+      setImgToDelete([...imgToDelete, value]);
+    } else {
+      setImgToDelete(imgToDelete.filter((imgPath) => imgPath !== value));
+    }
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
     if (!window.confirm("Are you sure you want to update this product?"))
       return;
     console.log(form);
-    const {
-      __v,
-      updatedAt,
-      thumbnail,
-      slug,
-      sku,
-      ratings,
-      image,
-      createdAt,
-      ...rest
-    } = form;
+    const { __v, updatedAt, slug, sku, ratings, createdAt, ...rest } = form;
 
     rest.salesPrice = Number(rest.salesPrice) ? +rest.salesPrice : 0;
     rest.salesStartDate = rest.salesStartDate ? rest.salesStartDate : null;
     rest.salesEndDate = rest.salesEndDate ? rest.salesEndDate : null;
 
-    dispatch(updateProductAction(rest));
+    // bundle in formData
+    const formData = new FormData();
+
+    for (const key in rest) {
+      console.log(key, form[key]);
+      formData.append(key, rest[key]);
+    }
+
+    newImages.length &&
+      [...newImages].map((img) => formData.append("newImages", img));
+
+    formData.append("imgToDelete", imgToDelete);
+
+    dispatch(updateProductAction(formData));
   };
 
   const inputFields = [
@@ -139,8 +159,15 @@ export const EditProductForm = () => {
       required: "true",
       value: form.description,
     },
+    {
+      name: "images",
+      type: "file",
+      multiple: true,
+      accept: "imge/*",
+    },
   ];
 
+  console.log(form, "dsdsds");
   return (
     <Form onSubmit={handleOnSubmit}>
       <Form.Check
@@ -176,11 +203,48 @@ export const EditProductForm = () => {
       </Form.Group>
 
       {inputFields.map((item, i) => (
-        <CustomInput key={i} {...item} onChange={handleOnChange} />
+        <CustomInput
+          key={i}
+          {...item}
+          onChange={
+            item.name === "images" ? handleOnImageSelect : handleOnChange
+          }
+        />
       ))}
 
-      <Button className="mb-3" variant="primary" type="submit">
-        Add Product
+      <hr />
+      <div className="d-flex my-2">
+        {selectedProduct.images &&
+          selectedProduct.images.length > 0 &&
+          selectedProduct.images.map((imgLink) => (
+            <div className="img p-2">
+              <Form.Check
+                type="radio"
+                label="Use as thumbnail"
+                name="thumbnail"
+                onChange={handleOnChange}
+                value={imgLink}
+                checked={imgLink === form.thumbnail}
+              ></Form.Check>
+              <img
+                key={imgLink}
+                src={process.env.REACT_APP_IMAGE_SERVER_URL + imgLink.substr(6)}
+                alt="product image"
+                width="200px"
+                crossOrigin="anonymous"
+                className="img-thumbnail"
+              />
+              <Form.Check
+                label="Delete"
+                value={imgLink}
+                onChange={handleOnImageDelete}
+              ></Form.Check>
+            </div>
+          ))}
+      </div>
+
+      <Button className="mb-3" variant="warning" type="submit">
+        Edit Product
       </Button>
     </Form>
   );
