@@ -67,7 +67,7 @@ export const LoginForm = () => {
               name="password"
               type="password"
               placeholder="Password"
-              value="aaaaA11"
+              value="bbbbB11"
               required
             />
           </Form.Group>
