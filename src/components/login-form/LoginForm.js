@@ -7,6 +7,7 @@ import {
   postUserAction,
 } from "../../pages/register-login/signInUpAction";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // const initialState = {
 //   email: "h@d.com",
@@ -16,6 +17,11 @@ import { useNavigate } from "react-router-dom";
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location.state.from.pathname);
+  const origin =
+    (location.state && location.state.from.pathname) || "/dashboard";
 
   // pull data from redux store
   const { isLoading } = useSelector((state) => state.signInUp);
@@ -25,8 +31,8 @@ export const LoginForm = () => {
   const passRef = useRef();
 
   useEffect(() => {
-    user._id && navigate("/dashboard");
-  }, [user]);
+    user._id && navigate(origin);
+  }, [user._id]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -37,8 +43,6 @@ export const LoginForm = () => {
     if (!email || !password) {
       return alert("Both input fields must be filled");
     }
-
-    // console.log(email, password);
 
     // call api, through action
     dispatch(postLoginAction({ email, password }));
@@ -67,7 +71,7 @@ export const LoginForm = () => {
               name="password"
               type="password"
               placeholder="Password"
-              value="bbbbB11"
+              defaultValue="bbbbB11"
               required
             />
           </Form.Group>

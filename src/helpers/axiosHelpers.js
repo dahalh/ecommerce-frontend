@@ -10,18 +10,47 @@ const paymentMethodEP = rootUrlAPI + "/payment-method";
 // ==== admin apis ======
 
 // @data must be an object
-const apiProcessor = async ({ method, url, dataObj }) => {
+const apiProcessor = async ({ method, url, dataObj, headers }) => {
   try {
     const { data } = await axios({
       method,
       url,
       data: dataObj,
+      headers,
     });
     return data;
   } catch (error) {
     let message = error.message;
+    console.log(error);
+
+    if (error.response && error.response.status === 401) {
+      sessionStorage.removeItem("accessJWT");
+      localStorage.removeItem("refreshJWT");
+      return { status: "error", message: "Unauthenticated" };
+    }
+
     if (error.response && error.response.data) {
       message = error.response.data.message;
+    }
+
+    if (message === "jwt expired!") {
+      // call the api to get new refreshTWT and recall the apiProcessor itself
+
+      const accessJWT = await requestNewAccessJWT();
+
+      if (accessJWT) {
+        sessionStorage.setItem("accessJWT", accessJWT);
+        return apiProcessor({
+          method,
+          url,
+          dataObj,
+          headers: {
+            Authorization: accessJWT,
+          },
+        });
+      }
+
+      return;
     }
 
     return {
@@ -31,9 +60,39 @@ const apiProcessor = async ({ method, url, dataObj }) => {
   }
 };
 
+export const requestNewAccessJWT = async () => {
+  const { accessJWT } = await apiProcessor({
+    method: "get",
+    url: adminEP + "/accessjwt",
+    headers: {
+      Authorization: localStorage.getItem("refreshJWT"),
+    },
+  });
+  sessionStorage.setItem("accessJWT", accessJWT);
+  return accessJWT;
+};
+
+export const getAdminUser = () => {
+  const url = adminEP;
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
 export const postUser = (dataObj) => {
   const url = adminEP;
-  return apiProcessor({ method: "post", url, dataObj });
+  return apiProcessor({
+    method: "post",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const loginUser = (dataObj) => {
@@ -60,7 +119,14 @@ export const requestPasswordResetOTP = (dataObj) => {
 // update password
 export const updateAdminPassword = (dataObj) => {
   const url = adminEP + "/password";
-  return apiProcessor({ method: "patch", url, dataObj });
+  return apiProcessor({
+    method: "patch",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 // update password from profile
@@ -73,70 +139,156 @@ export const updateAdminPasswordFromProfile = (dataObj) => {
 
 export const getCategories = () => {
   const url = catEP;
-  return apiProcessor({ method: "get", url });
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const postCategories = (dataObj) => {
   const url = catEP;
-  return apiProcessor({ method: "post", url, dataObj });
+  return apiProcessor({
+    method: "post",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const deleteCategory = (_id) => {
   console.log(_id);
   const url = catEP;
-  return apiProcessor({ method: "delete", url, dataObj: { _id } });
+  return apiProcessor({
+    method: "delete",
+    url,
+    dataObj: { _id },
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const updateCategory = (dataObj) => {
   const url = catEP;
-  return apiProcessor({ method: "put", url, dataObj });
+  return apiProcessor({
+    method: "put",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 // ==== product apis ======
 
 export const getProducts = () => {
   const url = productEP;
-  return apiProcessor({ method: "get", url });
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const getSingleProduct = (_id) => {
   const url = productEP + "/" + _id;
-  return apiProcessor({ method: "get", url });
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const postProduct = (dataObj) => {
   const url = productEP;
-  return apiProcessor({ method: "post", url, dataObj });
+  return apiProcessor({
+    method: "post",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const deleteProducts = (dataObj) => {
   const url = productEP;
-  return apiProcessor({ method: "delete", url, dataObj });
+  return apiProcessor({
+    method: "delete",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const updateProduct = (dataObj) => {
   const url = productEP;
-  return apiProcessor({ method: "put", url, dataObj });
+  return apiProcessor({
+    method: "put",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 // ==== payment methods api ======
 
 export const getPaymentMethods = (_id) => {
   const url = _id ? paymentMethodEP + "/" + _id : paymentMethodEP;
-  return apiProcessor({ method: "get", url });
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const postPaymentMethod = (dataObj) => {
   const url = paymentMethodEP;
-  return apiProcessor({ method: "post", url, dataObj });
+  return apiProcessor({
+    method: "post",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const deletePaymentMethod = (_id) => {
   const url = paymentMethodEP + "/" + _id;
-  return apiProcessor({ method: "delete", url });
+  return apiProcessor({
+    method: "delete",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };
 
 export const updatePaymentMethod = (dataObj) => {
   const url = paymentMethodEP;
-  return apiProcessor({ method: "put", url, dataObj });
+  return apiProcessor({
+    method: "put",
+    url,
+    dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
 };

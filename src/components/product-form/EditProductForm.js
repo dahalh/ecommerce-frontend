@@ -50,12 +50,11 @@ export const EditProductForm = () => {
 
   const handleOnImageSelect = (e) => {
     const { files } = e.target;
-    console.log(files);
     setImages(files);
   };
 
   const handleOnImageDelete = (e) => {
-    const { checked, value, name } = e.target;
+    const { checked, value } = e.target;
     if (checked) {
       setImgToDelete([...imgToDelete, value]);
     } else {
@@ -68,7 +67,6 @@ export const EditProductForm = () => {
 
     if (!window.confirm("Are you sure you want to update this product?"))
       return;
-    console.log(form);
     const { __v, updatedAt, slug, sku, ratings, createdAt, ...rest } = form;
 
     rest.salesPrice = Number(rest.salesPrice) ? +rest.salesPrice : 0;
@@ -79,7 +77,6 @@ export const EditProductForm = () => {
     const formData = new FormData();
 
     for (const key in rest) {
-      console.log(key, form[key]);
       formData.append(key, rest[key]);
     }
 
@@ -167,7 +164,6 @@ export const EditProductForm = () => {
     },
   ];
 
-  console.log(form, "dsdsds");
   return (
     <Form onSubmit={handleOnSubmit}>
       <Form.Check
@@ -229,7 +225,7 @@ export const EditProductForm = () => {
               <img
                 key={imgLink}
                 src={process.env.REACT_APP_IMAGE_SERVER_URL + imgLink.substr(6)}
-                alt="product image"
+                alt="product"
                 width="200px"
                 crossOrigin="anonymous"
                 className="img-thumbnail"

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { PaymentMethodForm } from "../../components/payment-method-form/PaymentMethodForm";
 import { PaymentMethodTable } from "../../components/payment-method-table/PaymentMethodTable";
 import { toggleModal } from "../../system-state/systemSlice";
 import AdminLayout from "../layouts/AdminLayout";
@@ -18,7 +17,6 @@ const PaymentMethod = () => {
 
   return (
     <AdminLayout>
-      {/* {showForm && <PaymentMethodForm />} */}
       <Row className="mt-3 mb-5">
         <Col>
           <h1>Payment Methods</h1>

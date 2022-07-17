@@ -62,7 +62,6 @@ export const PaymentMethodTable = ({ showForm, setShowForm }) => {
                     variant="warning"
                     title="Edit"
                     onClick={() => handleOnEditForm(_id)}
-                    // onClick={() => dispatch(editPaymentMethodAction(_id))}
                   >
                     <i className="fa-solid fa-pen-to-square"></i>
                   </Button>{" "}

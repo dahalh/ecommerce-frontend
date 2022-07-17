@@ -1,13 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Button, Container, Form, Spinner } from "react-bootstrap";
 import "./ResetPassForm.css";
 import { useDispatch, useSelector } from "react-redux";
-import { postLoginAction } from "../../pages/register-login/signInUpAction";
-import { useNavigate } from "react-router-dom";
-import {
-  requestPassResetOTPAction,
-  resetPassAction,
-} from "../../pages/admin-profile/AdminProfileAction";
+import { resetPassAction } from "../../pages/admin-profile/AdminProfileAction";
 
 //aaaaA11
 
