@@ -19,7 +19,6 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.state.from.pathname);
   const origin =
     (location.state && location.state.from.pathname) || "/dashboard";
 

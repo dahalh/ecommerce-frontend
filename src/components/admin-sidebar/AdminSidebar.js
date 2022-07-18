@@ -52,11 +52,6 @@ export const AdminSidebar = () => {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
-              <Link className="nav-link" to="/catalog">
-                <i className="fa-solid fa-book"></i> Catalog
-              </Link>
-            </ListGroup.Item>
-            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/categories">
                 <i className="fa-solid fa-list"></i> Categories
               </Link>
@@ -73,7 +68,7 @@ export const AdminSidebar = () => {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
-              <Link className="nav-link" to="/settings">
+              <Link className="nav-link" to="/setting">
                 <i className="fa-solid fa-gear"></i> Settings
               </Link>
             </ListGroup.Item>

@@ -1,0 +1,27 @@
+.card {
+  box-shadow: -5px 5px 5px rgba(128, 128, 128, 0.713);
+  background: linear-gradient(
+    to right,
+    rgba(205, 27, 205, 0.977),
+    rgba(44, 12, 227, 0.795)
+  );
+}
+
+.card-title {
+  font-size: 3rem !important;
+  /* color: red; */
+  border: 6px double #ff8aae;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
