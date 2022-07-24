@@ -68,6 +68,11 @@ export const AdminSidebar = () => {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
+              <Link className="nav-link" to="/ratings">
+                <i className="fa-solid fa-star"></i> Ratings
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/setting">
                 <i className="fa-solid fa-gear"></i> Settings
               </Link>

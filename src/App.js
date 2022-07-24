@@ -16,6 +16,9 @@ import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import ResetPassword from "./pages/register-login/ResetPassword";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Setting from "./pages/setting/Setting";
+import Customers from "./pages/customers/Customers";
+import Ratings from "./pages/ratings/Ratings";
+import Orders from "./pages/orders/Orders";
 
 const App = () => {
   return (
@@ -95,6 +98,30 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Setting />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/customers"
+            element={
+              <PrivateRoute>
+                <Customers />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ratings"
+            element={
+              <PrivateRoute>
+                <Ratings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <PrivateRoute>
+                <Orders />
               </PrivateRoute>
             }
           />

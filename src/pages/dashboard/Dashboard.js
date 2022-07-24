@@ -93,10 +93,11 @@ const Dashboard = () => {
         </Row>
       </div>
 
-      <div className="user-info mt-5"></div>
-      <h5>Client Summary</h5>
-      <hr />
-      <CustomTable tableHeader={clientHeader} tableData={clientInfo} />
+      <div className="user-info mt-5">
+        <h5>Client Summary</h5>
+        <hr />
+        <CustomTable tableHeader={clientHeader} tableData={clientInfo} />
+      </div>
 
       <div className="last-orders">
         <h5>Last 5 Orders</h5>

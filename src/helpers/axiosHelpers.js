@@ -6,6 +6,9 @@ const catEP = rootUrlAPI + "/category";
 const productEP = rootUrlAPI + "/products";
 
 const paymentMethodEP = rootUrlAPI + "/payment-method";
+const customerEP = rootUrlAPI + "/customers";
+const ratingEP = rootUrlAPI + "/ratings";
+const orderEP = rootUrlAPI + "/orders";
 
 // ==== admin apis ======
 
@@ -287,6 +290,43 @@ export const updatePaymentMethod = (dataObj) => {
     method: "put",
     url,
     dataObj,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
+// Customer APIS
+
+export const getCustomers = (_id) => {
+  const url = _id ? customerEP + "/" + _id : customerEP;
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
+// Ratings API
+
+export const getRatings = (_id) => {
+  const url = _id ? ratingEP + "/" + _id : ratingEP;
+  return apiProcessor({
+    method: "get",
+    url,
+    headers: {
+      Authorization: sessionStorage.getItem("accessJWT"),
+    },
+  });
+};
+
+export const getOrders = (_id) => {
+  const url = _id ? orderEP + "/" + _id : orderEP;
+  return apiProcessor({
+    method: "get",
+    url,
     headers: {
       Authorization: sessionStorage.getItem("accessJWT"),
     },

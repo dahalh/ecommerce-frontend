@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 
-export const CustomTable = ({ tableData, tableHeader }) => {
+export const CustomTable = ({ tableHeader = [], tableData = [] }) => {
   return (
     <Table striped bordered hover>
       <thead>

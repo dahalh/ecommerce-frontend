@@ -11,7 +11,7 @@ const Product = () => {
       <div className="text-end">
         <Link to="/product/new">
           <Button variant="primary">
-            <i class="fa-solid fa-plus"></i> Add new product
+            <i className="fa-solid fa-plus"></i> Add new product
           </Button>
         </Link>
       </div>
