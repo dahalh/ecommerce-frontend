@@ -153,7 +153,7 @@ export const EditProductForm = () => {
       name: "description",
       as: "textarea",
       rows: "5",
-      required: "true",
+      required: true,
       value: form.description,
     },
     {
