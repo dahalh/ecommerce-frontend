@@ -55,7 +55,7 @@ export const updateProductAction = (obj) => async (dispatch) => {
   });
 
   const { status, message, result } = await response;
-  console.log(status, message);
+  // console.log(status, message);
 
   toast[status](message);
 

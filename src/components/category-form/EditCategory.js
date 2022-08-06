@@ -80,7 +80,7 @@ export const EditCategory = ({ selectedCat }) => {
                       <option
                         key={item._id}
                         value={item._id}
-                        defaultValue={item._id === form.parentCatId}
+                        selected={item._id === form.parentCatId}
                       >
                         {item.catName}
                       </option>

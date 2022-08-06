@@ -98,6 +98,7 @@ export const ProductTable = () => {
             </th>
             <th>#</th>
             <th>Status</th>
+            <th>Thumbnail</th>
             <th>Name</th>
             <th>QTY</th>
             <th>Price</th>
@@ -125,6 +126,20 @@ export const ProductTable = () => {
                 }
               >
                 {item.status}
+              </td>
+              <td>
+                {item.images.length > 0 && (
+                  <img
+                    src={
+                      process.env.REACT_APP_IMAGE_SERVER_URL +
+                      item.thumbnail.substr(6)
+                    }
+                    alt="thumbnail"
+                    width="100px"
+                    crossOrigin="anonymous"
+                    className="img-thumbnail"
+                  />
+                )}
               </td>
               <td>{item.name}</td>
               <td>{item.qty}</td>
