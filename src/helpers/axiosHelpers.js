@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootUrlAPI = "http://localhost:8000/api/v1";
+const rootUrlAPI = process.env.REACT_APP_API + "/api/v1";
 const adminEP = rootUrlAPI + "/admin";
 const catEP = rootUrlAPI + "/category";
 const productEP = rootUrlAPI + "/products";
