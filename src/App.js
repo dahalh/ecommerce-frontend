@@ -89,9 +89,9 @@ const App = () => {
           <Route
             path="/register"
             element={
-              // <PrivateRoute>
-              <RegistrationPage />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <RegistrationPage />
+              </PrivateRoute>
             }
           />
           <Route
