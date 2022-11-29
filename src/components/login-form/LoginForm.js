@@ -95,6 +95,13 @@ export const LoginForm = () => {
             </Button>
           </Form.Group>
         </Form>
+        <div className="text-start">
+          Please use the following login:
+          <br />
+          Email: testing@testing.com
+          <br />
+          Password: 123456
+        </div>
         <div className="text-end">
           Forgot password? <a href="/forget-password">Reset Password</a>
         </div>
