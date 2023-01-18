@@ -1,6 +1,6 @@
 # E-Commerce Admin CMS
 
-A CMS to manage products, categories, products for an E-Commerce Website.
+A CMS to manage products, categories, products for an E-Commerce Website. E-Commerce Website is under development.
 
 ## Features
 
