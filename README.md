@@ -1,5 +1,14 @@
-# ecommerce admin cms frontend app
+# E-Commerce Admin CMS
 
-This is the repository for the Admin CMS for an E-Commerce Website.
+A CMS to manage products, categories, products for an E-Commerce Website.
 
-## How to use
+## Features
+
+-	Designed a RESTful backend server using NodeJS and Express to store data persistently in an online MongoDB database.
+-	Integrated JWT for authentication/authorization.
+-	Utilized: React, React Components, React-Bootstrap, React-Redux, Node, Express, MongoDB.
+
+
+## Links
+- API Link: [https://github.com/dahalh/ticket-note-api](https://github.com/dahalh/ecommerce-api)
+- Live Link: https://hd-ecommerce.onrender.com/
